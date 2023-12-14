@@ -50,7 +50,7 @@
                     <tr>
                         <td>@supplier.Name @supplier.LastName</td>
                         <td>
-                            @if (new List<double>(@supplier.ProductIds).Contains(Model.Product.Id))
+                            @if (new List<double>(@supplier.ProductIds??new double[0]).Contains(Model.Product.Id))
                             {
                                 <a class="button" asp-controller="Products" asp-action="DeleteSupplier" asp-route-id="@Model.Product.Id" asp-route-id2="@supplier.Id">Delete</a>
                             } else

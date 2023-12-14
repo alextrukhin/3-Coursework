@@ -93,7 +93,7 @@ namespace PL.Controllers
                 return RedirectToAction(nameof(View), new { Id = Id });
             }
 
-            List<double> ids = new(supplier.ProductIds)
+            List<double> ids = new(supplier.ProductIds ?? new double[0])
             {
                 Id
             };
@@ -113,7 +113,7 @@ namespace PL.Controllers
                 return RedirectToAction(nameof(View), new { Id = Id });
             }
 
-            supplier.ProductIds = new List<double>(supplier.ProductIds).Where(s => s != Id).ToArray();
+            supplier.ProductIds = new List<double>(supplier.ProductIds ?? new double[0]).Where(s => s != Id).ToArray();
             suppliers.UpdateById(supplier, Id2);
 
             return RedirectToAction(nameof(View), new { Id = Id });
