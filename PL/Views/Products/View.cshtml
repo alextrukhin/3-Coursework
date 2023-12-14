@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "View product";
+}
+
+<div class="text-center">
+    @if (Model.Product == null)
+    {
+        <h1 class="display-4">Not found</h1>
+        <a class="nav-link text-dark" asp-controller="Categories" asp-action="Index">All categories</a>
+    }else{
+        <h1 class="display-4">@Model.Product.Brand @Model.Product.Name</h1>
+        @if (@Model.Product.CategoryId==null){
+            <a class="button" asp-controller="Categories" asp-action="View" asp-route-id="@Model.Product.CategoryId">View category</a>}
+
+        <a class="button" asp-action="Edit" asp-route-id="@Model.Product.Id">Edit</a>
+        <p class="display-5">
+            <span>Price: @Model.Product.Price</span>
+            <br />
+            <span>In stock: @Model.Product.InStock</span>
+        </p>
+        <p class="display-5">@Model.Product.Description</p>
+        <table>
+            <thead>
+                <tr>
+                    <td>Property</td>
+                    <td>Value</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var field in Model.Fields)
+                {
+                    <tr>
+                        <td>@field.Item1</td>
+                        <td>@Model.Product.GetType().GetProperty(@field.Item1).GetValue(@Model.Product, null)</td>
+                </tr>
+                }
+        </tbody>
+        </table>
+        <p class="display-5">Suppliers:</p>
+        <table>
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Operations</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var supplier in Model.Suppliers)
+                {
+                    <tr>
+                        <td>@supplier.Name @supplier.LastName</td>
+                        <td>
+                            @if (new List<double>(@supplier.ProductIds).Contains(Model.Product.Id))
+                            {
+                                <a class="button" asp-controller="Products" asp-action="DeleteSupplier" asp-route-id="@Model.Product.Id" asp-route-id2="@supplier.Id">Delete</a>
+                            } else
+                            {
+                                <a class="button" asp-controller="Products" asp-action="AddSupplier" asp-route-id="@Model.Product.Id" asp-route-id2="@supplier.Id">Add</a>
+                            }
+                            <a class="button" asp-controller="Suppliers" asp-action="View" asp-route-id="@supplier.Id">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

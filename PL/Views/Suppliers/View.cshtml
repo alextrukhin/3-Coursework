@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "View supplier";
+}
+
+<div class="text-center">
+    @if (Model.Supplier==null)
+    {
+        <h1 class="display-4">Not found</h1>
+        <a class="button" asp-action="Index">All suppliers</a>
+    }else{
+        <h1 class="display-4">@Model.Supplier.Name @Model.Supplier.LastName</h1>
+        <a class="button" asp-action="Edit" asp-route-id="@Model.Supplier.Id">Edit</a>
+        <p class="display-5">
+            <span>Email: @Model.Supplier.Email</span>
+            <br />
+            <span>Phone: @Model.Supplier.Phone</span>
+            <br />
+            <span>Address: @Model.Supplier.Address</span>
+        </p>
+        <p class="display-5">@Model.Supplier.Description</p>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td><a asp-action="View" asp-route-id="@item.Id">@item.Name</a></td>
+                    <td>
+                         <a class="button button-outline" asp-controller="Products" asp-action="View" asp-route-id="@item.Id">View</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+</div>

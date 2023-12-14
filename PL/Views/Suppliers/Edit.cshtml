@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Edit supplier";
+}
+
+<div class="text-center">
+    @if (Model.Supplier == null)
+    {
+        <h1 class="display-4">Supplier not found</h1>
+        <a class="button" asp-action="Index">All suppliers</a>
+    }
+    else
+    {
+        <h1 class="display-4">Edit supplier</h1>
+        <form action="" method="post">
+            <input name="Id" type="hidden" value="@Model.Supplier.Id" />
+            <p>Name:</p>
+            <input name="Name" type="text" placeholder="Name" value="@Model.Supplier.Name" />
+            <p>Last Name:</p>
+            <input name="LastName" type="text" placeholder="Last name" value="@Model.Supplier.LastName" />
+            <p>Email:</p>
+            <input name="Email" type="email" placeholder="Email" value="@Model.Supplier.Email" />
+            <p>Description:</p>
+            <textarea name="Description" placeholder="Description">@Model.Supplier.Description</textarea>
+            <p>Phone:</p>
+            <input name="Phone" type="tel" placeholder="Phone" value="@Model.Supplier.Phone" />
+            <p>Address:</p>
+            <input name="Address" type="text" placeholder="Address" value="@Model.Supplier.Address" />
+            <input type="submit" value="Apply" />
+        </form>
+    }
+</div>

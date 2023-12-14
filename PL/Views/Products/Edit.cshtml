@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Edit product";
+}
+
+<div class="text-center">
+    @if (Model.Product == null)
+    {
+        <h1 class="display-4">Product not found</h1>
+        <a class="button" asp-action="Index">All products</a>
+    }
+    else
+    {
+        <h1 class="display-4">Edit product</h1>
+        <form action="" method="post">
+            <input name="Id" type="hidden" value="@Model.Product.Id" />
+            <p>Name:</p>
+            <input name="Name" type="text" placeholder="Name" value="@Model.Product.Name" />
+            <p>Brand:</p>
+            <input name="Brand" type="text" placeholder="Brand" value="@Model.Product.Brand" />
+            <p>InStock:</p>
+            <input name="InStock" type="number" placeholder="Amount in stock" value="@Model.Product.InStock" />
+            <p>Price:</p>
+            <input type="number" min="0" step="any" name="Price" placeholder="Price" value="@Model.Product.Price" />
+            <p>Description:</p>
+            <textarea name="Description" placeholder="Description">@Model.Product.Description</textarea>
+            @foreach (var field in Model.Fields)
+            {
+                <p>@field.Item1</p>
+                <input name="@field.Item1" type="@field.Item2" value="@Model.Product.GetType().GetProperty(@field.Item1).GetValue(@Model.Product, null)" />
+            }
+            @if (@Model.Product.CategoryId != null)
+            {
+                <input name="CategoryId" type="hidden" value="@Model.Product.CategoryId" />
+            }
+            else
+            {
+                <p>Category:</p>
+                <select name="CategoryId">
+                    <option value="@null" disabled>No category</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            }
+            <input type="submit" value="Apply" />
+        </form>
+    }
+</div>

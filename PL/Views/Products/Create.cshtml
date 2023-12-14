@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Create product";
+}
+
+<div class="text-center">
+    @if (Model.Category == null)
+    {
+        <h1 class="display-4">Category not found</h1>
+        <a class="button" asp-action="Index">All categories</a>
+    }else{
+        <h1 class="display-4">Create product</h1>
+        <form action="" method="post">
+            <input name="CategoryId" type="hidden" value="@Model.Category.Id" />
+            <p>Name:</p>
+            <input name="Name" type="text" placeholder="Name" />
+            <p>InStock:</p>
+            <input name="InStock" type="number" placeholder="Amount in stock" />
+            <p>Price:</p>
+            <input type="number" min="0" step="any" name="Price" placeholder="Price" />
+            <p>Description:</p>
+            <textarea name="Description" placeholder="Description"></textarea>
+            @foreach (var field in Model.Fields)
+            {
+                <p>@field.Item1</p>
+                <input name="@field.Item1" type="@field.Item2" />
+            }
+            <input type="submit" value="Create" />
+        </form>
+    }
+</div>

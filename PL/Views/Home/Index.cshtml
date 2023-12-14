@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <ul class="flex-grow-1">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Search">Search</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+        </li>
+	</ul>
+	<p>
+        @foreach (string DBType in Model.DBTypes)
+        {
+            <form method="post" action=""><input type="hidden" name="db_type" value="@DBType" /><input type="submit" class="button" value="@DBType" disabled="@(Model.DBType==@DBType)" /></form>
+		}
+	</p>
+</div>

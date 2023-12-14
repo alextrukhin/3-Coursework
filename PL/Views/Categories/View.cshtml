@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "View category";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@(Model.Category!=null?Model.Category.Name:"Without category")</h1>
+    <a class="button" asp-action="Index">All categories</a>
+    @if (Model.Category != null)
+    {
+        <a class="button" asp-action="Edit" asp-route-id="@Model.Category.Id">Edit</a>
+        <a class="button" asp-controller="Products" asp-action="Create" asp-route-id="@Model.Category.Id">+ New product</a>
+    }
+    <p>Products: @Model.Products.Count.ToString()</p>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>In stock</td>
+                <td>Price</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td><a asp-controller="Products" asp-action="View" asp-route-id="@item.Id">@item.Name</a></td>
+                    <td>@item.InStock</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <a class="button button-outline" asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="button button-outline" asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

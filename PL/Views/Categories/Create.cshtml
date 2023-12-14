@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Create category";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Create category</h1>
+    <form action="" method="post">
+        <p>Name:</p>
+        <input name="Name" type="text" placeholder="Name" />
+        <p>Fields:</p>
+        <select name="Fields" placeholder="Fields" multiple>
+            @foreach (var item in Model.Fields)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
+        <input type="submit" value="Create" />
+    </form>
+</div>
