@@ -35,7 +35,7 @@ namespace PL.Controllers
             categoryService.Insert(createValues);
             return RedirectToAction(nameof(Index));
         }
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(double Id)
         {
             List<string> listOfFieldNames = typeof(Product).GetProperties().Where(f => f.CanWrite).Select(f => f.Name).Where(f => !ProductService.IgnoreFields.Contains(f)).ToList();
             using CategoryService categoryService = new(HttpContext.Session.GetString("db_type") ?? "json");
@@ -50,7 +50,7 @@ namespace PL.Controllers
             categoryService.UpdateById(newValues, (el)=>el.Id==newValues.Id);
             return RedirectToAction(nameof(Index));
         }
-        public ActionResult Delete(int Id)
+        public ActionResult Delete(double Id)
         {
             using CategoryService categoryService = new(HttpContext.Session.GetString("db_type") ?? "json");
             categoryService.DeleteById(Id);

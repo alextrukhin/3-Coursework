@@ -51,7 +51,7 @@ namespace PL.Controllers
             suppliers.UpdateById(newValues, (el) => el.Id == newValues.Id);
             return RedirectToAction(nameof(Index));
         }
-        public ActionResult Delete(int Id)
+        public ActionResult Delete(double Id)
         {
             using SupplierService suppliers = new(HttpContext.Session.GetString("db_type") ?? "json");
             suppliers.DeleteById((el) => el.Id == Id);
